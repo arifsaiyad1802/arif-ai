@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {PollsService} from './services/polls.service';
 import {Polls} from './model/polls';
 import {MatTableDataSource} from '@angular/material/table';
+import {PollDetailComponent} from './dialogues/poll-detail/poll-detail.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-root',
@@ -14,10 +16,10 @@ export class AppComponent {
     dataSource: any = [];
     searchedValue: string = '';
     pollIntervalTracker: any; // For tracking polls interval
-    interval: number = 10000; // Value should be in second
+    interval: number = 10000; // Value should be in the second
 
-    // Initializes poll service
-    constructor(private pollsService: PollsService) {
+    // Initializes poll service and dialog
+    constructor(private pollsService: PollsService, public dialog: MatDialog) {
     }
 
     // Calls on init
@@ -39,7 +41,6 @@ export class AppComponent {
                 this.dataSource = new MatTableDataSource(response.hits);
                 this.applyFilterPredicate();
                 this.applyFilter(this.searchedValue);
-
             },
             error => {
                 console.log('Error occured while fetching polls data');
@@ -59,10 +60,18 @@ export class AppComponent {
         };
     }
 
+    // Function for getting specific poll's details
+    getPollDetails(pollDetail): void {
+        const dialogRef = this.dialog.open(PollDetailComponent, {
+            width: '1250px',
+            data: {pollDetail: pollDetail}
+        });
+    }
+
     // Used for destroying resource
     ngOnDestroy() {
         if (this.pollIntervalTracker) {
-            clearInterval(this.pollIntervalTracker);
+            clearInterval(this.pollIntervalTracker); // Cleares the interval tracker
         }
     }
 }

@@ -1,3 +1,7 @@
-<p>
-  poll-detail works!
-</p>
+<h1 mat-dialog-title class="text-center text-underline">Poll Details</h1>
+<div mat-dialog-content>
+    <pre>{{ data.pollDetail | json }}</pre>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+</mat-dialog-actions>

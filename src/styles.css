@@ -4,3 +4,5 @@ html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; padding: 20px}
 .text-underline{text-decoration: underline;}
 .text-center{text-align: center;}
+.cursor{cursor: pointer}
+.empty-table-record{padding:20px;text-align: center;}
